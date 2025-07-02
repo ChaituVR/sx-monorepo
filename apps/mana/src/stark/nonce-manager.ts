@@ -23,7 +23,7 @@ export class NonceManager {
 
     const actualNonce = BigInt(await this.account.getNonce());
 
-    if (this.nextNonce === -1n || actualNonce > this.nextNonce) {
+    if (actualNonce > this.nextNonce) {
       this.nextNonce = actualNonce;
     }
 
