@@ -154,11 +154,16 @@ export const createNetworkHandler = (chainId: string) => {
   }
 
   async function generateTree(requestId: string, entries: string[]) {
-    const tree = await utils.merkle.generateMerkleTree(entries);
-    const root = tree[0];
-    if (!root) throw new Error('Merkle tree not generated');
+    try {
+      const tree = await utils.merkle.generateMerkleTree(entries);
+      const root = tree[0];
+      if (!root) throw new Error('Merkle tree not generated');
 
-    await db.saveMerkleTree(requestId, root, tree);
+      await db.saveMerkleTree(requestId, root, tree);
+    } catch (e) {
+      console.error('Failed to generate merkle tree for request', requestId, e);
+      // TODO: Mark request as failed in database
+    }
   }
 
   async function generateMerkleTree(id: number, params: any, res: Response) {

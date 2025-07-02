@@ -319,13 +319,7 @@ export function memoize<T extends any[], U>(fn: (...args: T) => U) {
   const cache = new Map<string, any>();
 
   return (...args: T): U => {
-    let key: string;
-    try {
-      key = JSON.stringify(args);
-    } catch (e) {
-      // Fallback for non-serializable arguments (functions, circular refs, etc.)
-      key = args.map((arg, i) => `${i}:${typeof arg}:${String(arg)}`).join('|');
-    }
+    const key = JSON.stringify(args);
 
     if (cache.has(key)) {
       return cache.get(key);
