@@ -62,7 +62,7 @@ export class Leaf {
 export async function generateMerkleTree(entries: string[]) {
   const leaves = entries.map(entry => {
     const [address, votingPower] = entry.split(':').map(s => s.trim());
-    if (!address || votingPower === undefined) throwError('Invalid entry format');
+    if (!address || !votingPower) throwError('Invalid entry format');
     const type =
       address.length === 42 ? AddressType.ETHEREUM : AddressType.STARKNET;
 
