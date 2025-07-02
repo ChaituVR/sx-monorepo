@@ -1,3 +1,4 @@
+import { createApp, h } from 'vue';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import { createPinia } from 'pinia';
 import VueTippy from 'vue-tippy';
