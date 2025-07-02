@@ -420,9 +420,9 @@ export async function verifyStarknetNetwork(
   chainId: starknetConstants.StarknetChainId
 ) {
   if (!web3.provider.request) return;
-  // Skip network switch for Ready,
+  // Skip network switch for Ready (mobile),
   // only SN_MAIN is supported (getting `unknown request` error inside in-built browser)
-  if (web3.provider.name === 'Ready') return;
+  if (web3.provider.name === 'Ready (mobile)') return;
   try {
     await web3.provider.request({
       type: 'wallet_switchStarknetChain',
