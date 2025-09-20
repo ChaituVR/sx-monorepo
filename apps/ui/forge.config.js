@@ -29,53 +29,18 @@ export default {
   rebuildConfig: {},
   plugins: [],
   makers: [
-    // macOS: Only DMG files
     {
       name: '@electron-forge/maker-dmg',
-      config: {
-        format: 'ULFO',
-        overwrite: true
-      },
       platforms: ['darwin']
     },
-    // Windows: Squirrel installer (conditionally enabled based on platform)
-    ...(process.platform === 'win32'
-      ? [
-          {
-            name: '@electron-forge/maker-squirrel',
-            config: {
-              name: 'Snapshot'
-            },
-            platforms: ['win32']
-          }
-        ]
-      : [
-          // Cross-platform: ZIP files for Windows when building on non-Windows
-          {
-            name: '@electron-forge/maker-zip',
-            platforms: ['win32']
-          }
-        ]),
-    // Linux: .deb packages (only when tools available)
+    // Windows: ZIP files (cross-platform compatible)
     {
-      name: '@electron-forge/maker-deb',
-      config: {
-        options: {
-          maintainer: 'Snapshot Labs',
-          homepage: 'https://snapshot.org'
-        }
-      },
-      platforms: ['linux']
+      name: '@electron-forge/maker-zip',
+      platforms: ['win32']
     },
-    // Linux: .rpm packages (only when tools available)
+    // Linux: ZIP packages (universal format)
     {
-      name: '@electron-forge/maker-rpm',
-      config: {
-        options: {
-          maintainer: 'Snapshot Labs',
-          homepage: 'https://snapshot.org'
-        }
-      },
+      name: '@electron-forge/maker-zip',
       platforms: ['linux']
     }
   ],

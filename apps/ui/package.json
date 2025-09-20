@@ -17,12 +17,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "electron:start": "concurrently \"yarn dev\" \"wait-on http://localhost:8080 && electron .\"",
-    "electron:build": "yarn electron:build:frontend && yarn electron:build:darwin && yarn electron:build:windows && yarn electron:build:linux && yarn electron:cleanup",
-    "electron:build:frontend": "ELECTRON=true yarn build",
-    "electron:build:darwin": "electron-forge make --platform darwin --arch x64 && electron-forge make --platform darwin --arch arm64 && electron-forge make --platform darwin --arch universal",
-    "electron:build:windows": "(electron-forge make --platform win32 --arch x64 && electron-forge make --platform win32 --arch arm64 && echo '✓ Windows builds completed') || echo '⚠ Windows builds skipped - see error above'",
-    "electron:build:linux": "(electron-forge make --platform linux --arch x64 && electron-forge make --platform linux --arch arm64 && echo '✓ Linux builds completed') || echo '⚠ Linux builds skipped - install: brew install dpkg fakeroot'",
-    "electron:cleanup": "rm -rf out/Snapshot-* && rm -rf out/make/zip || true",
+    "electron:build": "ELECTRON=true yarn build && electron-forge make --platform=darwin --arch=x64 && electron-forge make --platform=darwin --arch=arm64 && electron-forge make --platform=win32 --arch=x64 && electron-forge make --platform=win32 --arch=arm64 && electron-forge make --platform=linux --arch=x64 && electron-forge make --platform=linux --arch=arm64",
     "electron:publish": "ELECTRON=true yarn build && electron-forge publish"
   },
   "eslintConfig": {
