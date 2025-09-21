@@ -9,7 +9,7 @@ function createWindow() {
       contextIsolation: true
     },
     show: false,
-    titleBarStyle: 'hidden',
+    titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
     frame: false
   });
 
