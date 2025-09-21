@@ -47,11 +47,14 @@ export default {
   publishers: [
     {
       name: '@electron-forge/publisher-github',
+      platforms: ['darwin', 'win32', 'linux'],
       config: {
         repository: {
           owner: 'snapshot-labs',
           name: 'sx-monorepo'
-        }
+        },
+        prerelease: false,
+        draft: false
       }
     }
   ]
