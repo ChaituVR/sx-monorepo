@@ -11,14 +11,7 @@ export default {
       /^\/screenshots/,
       /\.md$/
     ],
-    asar: true,
-    asarUnpack: [
-      'node_modules/.pnpm',
-      '**/*.node',
-      '**/keccak/**',
-      '**/secp256k1/**',
-      '**/0xsequence/**'
-    ],
+    asar: false, // Disable asar to fix Windows module resolution
     out: 'out',
     overwrite: true,
     prune: false,
@@ -33,7 +26,7 @@ export default {
       name: '@electron-forge/maker-dmg',
       platforms: ['darwin']
     },
-    // Windows: ZIP files (cross-platform compatible)
+    // Windows: ZIP files (cross-platform compatible) - supports 64-bit
     {
       name: '@electron-forge/maker-zip',
       platforms: ['win32']

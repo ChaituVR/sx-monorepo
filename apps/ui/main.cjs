@@ -1,7 +1,4 @@
 const { app, BrowserWindow } = require('electron');
-const { updateElectronApp } = require('update-electron-app');
-
-updateElectronApp();
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -22,6 +19,14 @@ function createWindow() {
     win.loadURL('http://localhost:8080');
   } else {
     win.loadFile('dist/index.html');
+    // Try to enable auto-updater for production builds
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { updateElectronApp } = require('update-electron-app');
+      updateElectronApp();
+    } catch (error) {
+      console.log('Auto-updater not available:', error.message);
+    }
   }
 
   win.once('ready-to-show', () => {
