@@ -50,7 +50,7 @@ export default {
       platforms: ['darwin', 'win32', 'linux'],
       config: {
         repository: {
-          owner: 'snapshot-labs',
+          owner: 'ChaituVR',
           name: 'sx-monorepo'
         },
         prerelease: false,

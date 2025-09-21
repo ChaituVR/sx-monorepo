@@ -7,7 +7,7 @@
   "main": "main.cjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snapshot-labs/sx-monorepo.git",
+    "url": "git+https://github.com/ChaituVR/sx-monorepo.git",
     "directory": "apps/ui"
   },
   "scripts": {
