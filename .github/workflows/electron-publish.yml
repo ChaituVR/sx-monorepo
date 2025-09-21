@@ -1,0 +1,64 @@
+name: Publish Electron App
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: macos-latest
+    
+    # Only run if release tag matches pattern @snapshot-labs/ui@*
+    if: startsWith(github.event.release.tag_name, '@snapshot-labs/ui@')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Extract version from release tag
+        id: version
+        run: |
+          VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/.*@//')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update package.json version
+        run: |
+          cd apps/ui
+          npm version $VERSION --no-git-tag-version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+
+      - name: Build Electron app
+        run: |
+          cd apps/ui
+          yarn electron:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifacts to release
+        run: |
+          cd apps/ui/out/make
+          
+          # Find and upload all built artifacts
+          echo "Searching for build artifacts..."
+          find . -name "*.dmg" -o -name "*.exe" -o -name "*.AppImage" -o -name "*.deb" -o -name "*.rpm" -o -name "*.zip" | while read -r file; do
+            echo "Uploading: $file"
+            gh release upload "${{ github.event.release.tag_name }}" "$file" --clobber
+          done
+          
+          echo "Build artifacts uploaded successfully!"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
