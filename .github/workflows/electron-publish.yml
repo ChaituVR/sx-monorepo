@@ -27,20 +27,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Extract version from release tag
-        id: version
-        run: |
-          VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/.*@//')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Extracted version: $VERSION"
-
-      - name: Update package.json version
-        run: |
-          cd apps/ui
-          npm version $VERSION --no-git-tag-version
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-
       - name: Build Electron app
         run: |
           cd apps/ui
