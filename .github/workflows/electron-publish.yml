@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build sx.js package
+        run: yarn workspace @snapshot-labs/sx build
+
       - name: Build Electron app
         run: |
           cd apps/ui
