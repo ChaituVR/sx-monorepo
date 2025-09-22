@@ -42,6 +42,8 @@ onMounted(() => initWhiteLabel());
 
 <template>
   <div class="max-w-maximum mx-auto">
+    hello
+    <!-- Added to test auto update -->
     <LayoutSplash v-if="!whiteLabelResolved" />
     <LayoutSite v-else-if="routeName === 'site'" />
     <LayoutApp v-else />
