@@ -19,12 +19,6 @@ function createWindow() {
     win.loadURL('http://localhost:8080');
   } else {
     win.loadFile('dist/index.html');
-    try {
-      const { updateElectronApp } = require('update-electron-app');
-      updateElectronApp();
-    } catch (error) {
-      console.log('Auto-updater not available:', error.message);
-    }
   }
 
   win.once('ready-to-show', () => {
