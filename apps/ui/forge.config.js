@@ -36,19 +36,5 @@ export default {
       name: '@electron-forge/maker-zip',
       platforms: ['linux']
     }
-  ],
-  publishers: [
-    {
-      name: '@electron-forge/publisher-github',
-      platforms: ['darwin', 'win32', 'linux'],
-      config: {
-        repository: {
-          owner: 'ChaituVR',
-          name: 'sx-monorepo'
-        },
-        prerelease: false,
-        draft: false
-      }
-    }
   ]
 };

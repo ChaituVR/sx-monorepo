@@ -19,9 +19,7 @@ function createWindow() {
     win.loadURL('http://localhost:8080');
   } else {
     win.loadFile('dist/index.html');
-    // Try to enable auto-updater for production builds
     try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { updateElectronApp } = require('update-electron-app');
       updateElectronApp();
     } catch (error) {
